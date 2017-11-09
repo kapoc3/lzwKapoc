@@ -5,18 +5,29 @@
  */
 package presentation;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lzwkapoc.Lzwkapoc;
+
 /**
  *
  * @author cristian-gil
  */
 public class lzwform extends javax.swing.JFrame {
 
+    // <editor-fold defaultstate="collapsed" desc=" ATTRIBUTES">
+    private Lzwkapoc instance;
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="CONSTRUCTORS">
     /**
      * Creates new form lzwform
      */
     public lzwform() {
         initComponents();
+        instance = new Lzwkapoc();
     }
+    // </editor-fold>
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,15 +44,26 @@ public class lzwform extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtLetra = new javax.swing.JTextPane();
-        BtnAgregar = new javax.swing.JButton();
+        BtnLimpiar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtEntrada = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtSalida = new javax.swing.JTextArea();
+        btnCodificar = new javax.swing.JButton();
+        btnDecodificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Algoritmo Lzw");
+        setName("Lzw"); // NOI18N
 
         jInternalFrame1.setVisible(true);
 
         tableDiccionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Letra", "Codigo"
@@ -59,21 +81,84 @@ public class lzwform extends javax.swing.JFrame {
 
         jLabel1.setText("Diccionario");
 
-        txtLetra.setEditable(false);
         txtLetra.setToolTipText("Agregar letra a diccionario");
         txtLetra.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLetraKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLetraKeyReleased(evt);
+            }
         });
         jScrollPane2.setViewportView(txtLetra);
 
-        BtnAgregar.setText("Agregar");
-        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        BtnLimpiar.setText("Limpiar Diccionario");
+        BtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAgregarActionPerformed(evt);
+                BtnLimpiarActionPerformed(evt);
             }
         });
+
+        jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.disabledShadow"));
+
+        jLabel2.setText("Entrada");
+
+        jLabel3.setText("Salida");
+
+        txtEntrada.setBackground(java.awt.Color.black);
+        txtEntrada.setColumns(20);
+        txtEntrada.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtEntrada.setForeground(new java.awt.Color(0, 255, 255));
+        txtEntrada.setRows(5);
+        jScrollPane3.setViewportView(txtEntrada);
+
+        txtSalida.setEditable(false);
+        txtSalida.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
+        txtSalida.setColumns(20);
+        txtSalida.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtSalida.setForeground(new java.awt.Color(255, 51, 0));
+        txtSalida.setRows(5);
+        jScrollPane4.setViewportView(txtSalida);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(92, 92, 92))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
+        );
+
+        btnCodificar.setText("Codificar");
+        btnCodificar.setActionCommand("Codificar");
+        btnCodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCodificarActionPerformed(evt);
+            }
+        });
+
+        btnDecodificar.setText("Decodificar");
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -81,13 +166,23 @@ public class lzwform extends javax.swing.JFrame {
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnAgregar))
-                .addGap(56, 56, 56)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnLimpiar))
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel1))
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(btnCodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDecodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jInternalFrame1Layout.setVerticalGroup(
@@ -101,11 +196,17 @@ public class lzwform extends javax.swing.JFrame {
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(BtnAgregar)))
-                .addContainerGap(355, Short.MAX_VALUE))
+                        .addComponent(BtnLimpiar)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCodificar)
+                    .addComponent(btnDecodificar))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        BtnAgregar.getAccessibleContext().setAccessibleName("BtnAgregar");
+        BtnLimpiar.getAccessibleContext().setAccessibleName("BtnAgregar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,61 +222,71 @@ public class lzwform extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-    }//GEN-LAST:event_BtnAgregarActionPerformed
+    // <editor-fold defaultstate="collapsed" desc="EVENTS">
+
+    private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
+        instance.cleanDictionary();
+        DefaultTableModel model = (DefaultTableModel) this.tableDiccionario.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_BtnLimpiarActionPerformed
 
     private void txtLetraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLetraKeyPressed
-        this.txtLetra.getText();
+
     }//GEN-LAST:event_txtLetraKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void txtLetraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLetraKeyReleased
+        addLetter();
+    }//GEN-LAST:event_txtLetraKeyReleased
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new lzwform().setVisible(true);
-            }
-        });
-    }
+    private void btnCodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCodificarActionPerformed
+        instance.compress(txtEntrada.getText());
+        
+        
+    }//GEN-LAST:event_btnCodificarActionPerformed
 
+    // </editor-fold>
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAgregar;
+    private javax.swing.JButton BtnLimpiar;
+    private javax.swing.JButton btnCodificar;
+    private javax.swing.JButton btnDecodificar;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tableDiccionario;
+    private javax.swing.JTextArea txtEntrada;
     private javax.swing.JTextPane txtLetra;
+    private javax.swing.JTextArea txtSalida;
     // End of variables declaration//GEN-END:variables
+
+// <editor-fold defaultstate="collapsed" desc="METHODS">    
+    private void addLetter() {
+        String letra = this.txtLetra.getText();
+
+        if (letra.length() > 1 || letra.equals("")) {
+            this.txtLetra.setText("");
+        } else {
+            int codigo = (int) letra.charAt(0);
+            DefaultTableModel model = (DefaultTableModel) this.tableDiccionario.getModel();
+            
+            if (instance.setDictionary(letra, codigo)){
+                model.addRow(new Object[]{letra, codigo});
+                Object kapoc = model.getDataVector();
+            }else{
+                JOptionPane.showMessageDialog(this, "La letra |" +  letra + "| ya esta en el diccionario","Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            this.txtLetra.setText("");
+        }
+    }    
 }
+ // </editor-fold>
