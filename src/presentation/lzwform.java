@@ -5,6 +5,13 @@
  */
 package presentation;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lzwkapoc.Lzwkapoc;
@@ -18,6 +25,8 @@ public class lzwform extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc=" ATTRIBUTES">
     private Lzwkapoc instance;
     // </editor-fold>
+    
+    private int code;
 
     // <editor-fold defaultstate="collapsed" desc="CONSTRUCTORS">
     /**
@@ -26,6 +35,7 @@ public class lzwform extends javax.swing.JFrame {
     public lzwform() {
         initComponents();
         instance = new Lzwkapoc();
+        code = 0;
     }
     // </editor-fold>
 
@@ -54,6 +64,7 @@ public class lzwform extends javax.swing.JFrame {
         txtSalida = new javax.swing.JTextArea();
         btnCodificar = new javax.swing.JButton();
         btnDecodificar = new javax.swing.JButton();
+        BtnDiccionarioCompleto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Algoritmo Lzw");
@@ -125,65 +136,82 @@ public class lzwform extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(173, 173, 173))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(185, 185, 185)
                 .addComponent(jLabel3)
-                .addGap(92, 92, 92))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4))
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        btnCodificar.setText("Codificar");
-        btnCodificar.setActionCommand("Codificar");
+        btnCodificar.setText("Comprimir");
         btnCodificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCodificarActionPerformed(evt);
             }
         });
 
-        btnDecodificar.setText("Decodificar");
+        btnDecodificar.setText("Descomprimir");
+        btnDecodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDecodificarActionPerformed(evt);
+            }
+        });
+
+        BtnDiccionarioCompleto.setText("Diccionario Completo");
+        BtnDiccionarioCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDiccionarioCompletoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnLimpiar))
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel1))
-                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
                         .addComponent(btnCodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDecodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                        .addGap(29, 29, 29)
+                        .addComponent(btnDecodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(BtnDiccionarioCompleto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(BtnLimpiar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
+                                        .addComponent(jLabel1))
+                                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,14 +224,16 @@ public class lzwform extends javax.swing.JFrame {
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(BtnLimpiar)))
+                        .addComponent(BtnLimpiar)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnDiccionarioCompleto)))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCodificar)
                     .addComponent(btnDecodificar))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         BtnLimpiar.getAccessibleContext().setAccessibleName("BtnAgregar");
@@ -212,7 +242,9 @@ public class lzwform extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,6 +263,12 @@ public class lzwform extends javax.swing.JFrame {
         instance.cleanDictionary();
         DefaultTableModel model = (DefaultTableModel) this.tableDiccionario.getModel();
         model.setRowCount(0);
+        code = 0;
+        this.btnCodificar.setEnabled(true);
+        this.txtEntrada.setText("");
+        this.txtSalida.setText("");
+        txtLetra.setEnabled(true);
+        BtnDiccionarioCompleto.setEnabled(true);
     }//GEN-LAST:event_BtnLimpiarActionPerformed
 
     private void txtLetraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLetraKeyPressed
@@ -239,17 +277,68 @@ public class lzwform extends javax.swing.JFrame {
 
     private void txtLetraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLetraKeyReleased
         addLetter();
+        this.BtnDiccionarioCompleto.setEnabled(false);
     }//GEN-LAST:event_txtLetraKeyReleased
 
     private void btnCodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCodificarActionPerformed
-        instance.compress(txtEntrada.getText());
+        List<Integer> kapoc;
+        int weigthOriginal=0; 
+        byte[] b = txtEntrada.getText().getBytes();;
         
-        
+        try {
+            kapoc = instance.compress(txtEntrada.getText());
+            StringBuilder sb = new StringBuilder();
+            
+            for (Integer value : kapoc) {
+                if (value!= null){
+                    sb.append(value.toString()).append(",");
+                } 
+            }
+            
+            StringBuilder sb2 = new StringBuilder();
+            for (Integer value : kapoc) {
+                if (value!= null){
+                    sb2.append(value.toString());
+                } 
+            }
+            
+            txtSalida.setText(sb.toString());
+            JOptionPane.showMessageDialog(this,"Se ha comprimido exitosamente \n tamaño original: " + b.length + " \n tamaño comprimido" + sb2.toString().getBytes().length  ,"EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+            this.btnCodificar.setEnabled(false);
+        } catch (Exception ex) {
+            Logger.getLogger(lzwform.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this,ex.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCodificarActionPerformed
+
+    private void btnDecodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecodificarActionPerformed
+        String data =  txtEntrada.getText();
+        String[] splitdata = data.split(",");
+        List<Integer> kapoc =  new ArrayList<Integer>();
+       
+        for (int i = 0; i < splitdata.length; i++) {
+            kapoc.add(Integer.parseInt(splitdata[i]));
+        }
+        
+        String result = instance.decompress(kapoc);
+        txtSalida.setText(result);
+    
+        JOptionPane.showMessageDialog(this,"Se ha descomprimido exitosamente!!!" ,"EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+        
+    }//GEN-LAST:event_btnDecodificarActionPerformed
+
+    private void BtnDiccionarioCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDiccionarioCompletoActionPerformed
+        this.txtLetra.setEnabled(false);
+        for (int i = 0; i < 256; i++){
+            instance.setDictionary((""+(char)i), i);
+        }  
+        this.drawTable();
+    }//GEN-LAST:event_BtnDiccionarioCompletoActionPerformed
 
     // </editor-fold>
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnDiccionarioCompleto;
     private javax.swing.JButton BtnLimpiar;
     private javax.swing.JButton btnCodificar;
     private javax.swing.JButton btnDecodificar;
@@ -270,23 +359,33 @@ public class lzwform extends javax.swing.JFrame {
 
 // <editor-fold defaultstate="collapsed" desc="METHODS">    
     private void addLetter() {
-        String letra = this.txtLetra.getText();
+        String letter = this.txtLetra.getText();
 
-        if (letra.length() > 1 || letra.equals("")) {
+        if (letter.length() > 1 || letter.equals("")) {
             this.txtLetra.setText("");
         } else {
-            int codigo = (int) letra.charAt(0);
+            //int codigo = (int) letter.charAt(0);
             DefaultTableModel model = (DefaultTableModel) this.tableDiccionario.getModel();
             
-            if (instance.setDictionary(letra, codigo)){
-                model.addRow(new Object[]{letra, codigo});
-                Object kapoc = model.getDataVector();
+            if (instance.setDictionary(letter, code)){
+                model.addRow(new Object[]{letter, code});
             }else{
-                JOptionPane.showMessageDialog(this, "La letra |" +  letra + "| ya esta en el diccionario","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "La letra |" +  letter + "| ya esta en el diccionario","Error", JOptionPane.ERROR_MESSAGE);
             }
             
             this.txtLetra.setText("");
+            code++;
         }
-    }    
+    }
+    
+    private void drawTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) this.tableDiccionario.getModel();
+        model.setRowCount(0);
+        
+        for (Map.Entry<String, Integer> entry : instance.dictionary.entrySet()){    
+            model.addRow(new Object[]{entry.getKey(), entry.getValue()});
+        }
+    }
 }
  // </editor-fold>
