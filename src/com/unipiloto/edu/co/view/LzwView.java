@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentation;
+package com.unipiloto.edu.co.view;
 
+import com.unipiloto.edu.co.controller.Controller;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -14,27 +15,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import lzwkapoc.Lzwkapoc;
 
 /**
  *
  * @author cristian-gil
  */
-public class lzwform extends javax.swing.JFrame {
+public class LzwView extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc=" ATTRIBUTES">
-    private Lzwkapoc instance;
+    private Controller instance;
     // </editor-fold>
     
     private int code;
 
     // <editor-fold defaultstate="collapsed" desc="CONSTRUCTORS">
     /**
-     * Creates new form lzwform
+     * Creates new form 
      */
-    public lzwform() {
+    public LzwView() {
         initComponents();
-        instance = new Lzwkapoc();
+        instance = new Controller();
         code = 0;
     }
     // </editor-fold>
@@ -306,7 +306,7 @@ public class lzwform extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Se ha comprimido exitosamente \n tamaño original: " + b.length + " \n tamaño comprimido" + sb2.toString().getBytes().length  ,"EXITOSO", JOptionPane.INFORMATION_MESSAGE);
             this.btnCodificar.setEnabled(false);
         } catch (Exception ex) {
-            Logger.getLogger(lzwform.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LzwView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this,ex.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCodificarActionPerformed
@@ -383,7 +383,7 @@ public class lzwform extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) this.tableDiccionario.getModel();
         model.setRowCount(0);
         
-        for (Map.Entry<String, Integer> entry : instance.dictionary.entrySet()){    
+        for (Map.Entry<String, Integer> entry : instance.getModel().dictionary.entrySet()){    
             model.addRow(new Object[]{entry.getKey(), entry.getValue()});
         }
     }

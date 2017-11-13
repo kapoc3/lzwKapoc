@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lzwkapoc;
+package com.unipiloto.edu.co.model;
 import java.util.*;
 import jdk.nashorn.internal.objects.NativeArray;
 
 
-import presentation.lzwform;
+import com.unipiloto.edu.co.view.LzwView;
 
 /**
  *
  * @author cristian-gil
  */
-public class Lzwkapoc {
+public class LzwModel {
 
     public Map<String,Integer> dictionary = new HashMap<String,Integer>();
     public Map<Integer, String> dictionaryd = new HashMap<Integer,String>();
@@ -63,7 +63,7 @@ public class Lzwkapoc {
         return result;
     }
     
-     public String decompress(List<Integer> compressed) {
+    public String decompress(List<Integer> compressed) {
         // Build the dictionary.
         int dictSize = dictionaryd.size();
         String w = "" + getCharByCode((int)compressed.remove(0));
@@ -95,39 +95,4 @@ public class Lzwkapoc {
         return dictionaryd.get(code).charAt(0);
      } 
      
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(lzwform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new lzwform().setVisible(true);
-            }
-        });
-    }
-    
 }
